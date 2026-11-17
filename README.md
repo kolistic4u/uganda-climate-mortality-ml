@@ -1,14 +1,17 @@
-# Predicting Climate-Sensitive Mortality in Uganda
+# Data Science & Machine Learning Capstone Projects
 
-## Project Overview
-This repository contains an end-to-end machine learning pipeline developed to identify whether mortality records in Uganda (`N = 3,146` training records) are climate-sensitive (`is_climate_sensitive`), and generalize predictions to `1,030` records across unseen geographic locations.
+This repository contains two complete, end-to-end machine learning solutions developed for the Data Science & ML Capstone Project.
 
-## Key Methodology & Results
-* **Spatial Generalization & Leak-Free Validation:** Evaluated using 5-fold `StratifiedGroupKFold` grouped by `location` after removing village identifiers (`location`, `latitude`, `longitude`) to prevent spatial overfitting.
-* **Feature Engineering:** Engineered 22 domain-grounded features capturing cyclical seasonality (`month_sin`, `month_cos`), diurnal temperature range, temperature anomalies, warm-wet interactions, and clinical age brackets.
-* **Best Model:** A hyperparameter-tuned **Random Forest Classifier** (`n_estimators=400`, `max_depth=4`, `max_features='log2'`) achieved an out-of-fold **ROC-AUC of 0.7810** and **PR-AUC of 0.8524**.
-* **Explainability:** SHAP summary analysis confirmed that under-five pediatric vulnerability (`age <= 4`) and elevated minimum nighttime temperatures (`min_temperature`) are the primary drivers of climate-sensitive mortality.
+---
 
-## Repository Contents
-* `Capstone_DSA_2.0.ipynb` — Complete Jupyter Notebook containing EDA, visualizations, preprocessing pipelines, model benchmarking, hyperparameter optimization, SHAP interpretation, and policy recommendations.
-* `uganda_mortality_predictions.xls` — Final test set predictions (`ID`, `predicted_probability`, and `is_climate_sensitive`).
+## Project 1: Predicting Climate-Sensitive Mortality in Uganda
+* **Objective:** Predict whether mortality records in Uganda (`N = 3,146` training records) are climate-sensitive (`is_climate_sensitive`), and generalize predictions to `1,030` records across unseen villages.
+* **Methodology & Key Results:** Engineered 22 domain features (cyclical seasonality, diurnal temperature range, anomalies, and pediatric age groups) and validated via leak-free 5-fold `StratifiedGroupKFold` grouped by `location`. A tuned **Random Forest Classifier** (`n_estimators=400`, `max_depth=4`, `max_features='log2'`) achieved **ROC-AUC = 0.7810** and **PR-AUC = 0.8524**, with SHAP identifying under-five vulnerability and elevated minimum temperatures as top drivers.
+* **Files:** `Capstone_DSA_2.0.ipynb`, `uganda_mortality_predictions.xls`
+
+---
+
+## Project 2: Predicting 30-Day Customer Liquidity Stress
+* **Objective:** Predict whether mobile money customers (`N = 40,000` training records) will experience liquidity stress over the next 30 days (`liquidity_stress_next_30d`), and score `30,000` unseen test customers.
+* **Methodology & Key Results:** Audited 183 behavioral and balance features (`85%` vs. `15%` class imbalance), engineered 20 trajectory and cash-burn features (`202` total predictors), and evaluated models via 5-fold `StratifiedKFold`. A tuned **LightGBM Classifier** (`n_estimators=300`, `learning_rate=0.05`, `num_leaves=31`, `min_child_samples=100`) achieved **ROC-AUC = 0.8842** and **PR-AUC = 0.6376**, with SHAP confirming that `bal_drop_m3_m4` and `bal_ratio_m1_m6` are the top predictors.
+* **Files:** `Financial_Stress_Capstone.ipynb`, `financial_stress_predictions.xls`
